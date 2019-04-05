@@ -1,0 +1,29 @@
+<div class="media-list lista mx-auto">
+    <h4 *ngIf="enInventario">Lista de Productos</h4>
+    <h4 *ngIf="!enInventario">Carrito de compras</h4>
+
+
+    <div *ngIf="enInventario">
+        <div class="btn btn-primary col-sm-6" (click)="cartAdd()"><i class="fas fa-plus">Añadir al carrito</i></div>
+
+        <app-producto-item *ngFor="let item of productos" [producto]="item" [enInventario]="enInventario"
+            (emisor)="cartUpdate($event, item)">
+        </app-producto-item>
+
+        <div class="row justify-content-between">
+            <div class="btn btn-primary col-sm-6" (click)="cartAdd()"><i class="fas fa-plus">Añadir al carrito</i></div>
+            <h5 class="col-sm-6 mt-2">artículos en tu carrito: {{ cant }}</h5>
+        </div>
+    </div>
+
+    <div *ngIf="!enInventario">
+        <app-producto-item *ngFor="let item of carrito" [producto]="item" [enInventario]="enInventario"
+            (emisor)="cartUpdate($event, item)">
+        </app-producto-item>
+
+
+        <div class="row justify-content-between" *ngIf="!enInventario">
+            <h5 class="col-sm-6 mt-2">Total de compra: {{ carritoTotal }}</h5>
+        </div>
+    </div>
+</div>
